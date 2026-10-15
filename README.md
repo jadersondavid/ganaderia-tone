@@ -23,7 +23,7 @@ Presentación del proyecto para abrir en sociedad una sucursal de Ganadería Ton
 8. La lechería: datos y plata
 9. Simulador de ventas (interactivo)
 10. La sociedad: lo que aporta el socio (tierra y núcleo genético Gyr de élite)
-11. Nuestras campeonas: Pandora (Agroexpo) y Realeza (Expogirardota)
+11. Nuestras campeonas: Pandora (Agroexpo) y Duquesa (Expogirardota)
 12. Galería
 13. Cierre y contacto
 
@@ -33,11 +33,13 @@ Ponga las fotos en la carpeta `img/` con estos nombres exactos (formato `.jpg`):
 
 | Archivo | Dónde aparece |
 |---|---|
-| `gyr-1.jpg` | La raza (vertical) |
-| `terneros-1.jpg` | El terneril (vertical) |
-| `gyrolandas-1.jpg` | La lechería (vertical) |
-| `pandora.jpg`, `realeza.jpg` | Nuestras campeonas |
-| `gyr-2.jpg`, `gyr-3.jpg`, `gyrolandas-2.jpg`, `terneros-2.jpg` | Galería |
+| `gyr-1.jpg` | La raza |
+| `terneros-1.jpg` | El terneril |
+| `lecheria.jpg` | La lechería |
+| `pandora.jpg`, `duquesa.jpg` | Nuestras campeonas |
+| `gyr-2.jpg`, `gyr-3.jpg`, `gyr-4.jpg`, `terneros-2.jpg` | Galería |
+
+Las fotos van reducidas a 1600 px (unos 300 KB cada una) para que la página cargue rápido en el celular.
 
 ## Contacto
 
