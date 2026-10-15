@@ -63,6 +63,16 @@ body.addEventListener('input', e => {
 });
 calcular();
 
+// ---------- Fondos: foto de la ganadería bajo un degradado ----------
+const degradado = {
+  dark: 'linear-gradient(110deg, rgba(42,31,17,.97) 0%, rgba(52,39,22,.9) 50%, rgba(52,39,22,.72) 100%)',
+  light: 'linear-gradient(110deg, rgba(245,236,220,.98) 0%, rgba(245,236,220,.93) 55%, rgba(245,236,220,.8) 100%)',
+};
+document.querySelectorAll('.slide[data-bg]').forEach(s => {
+  const tono = s.classList.contains('light') ? 'light' : 'dark';
+  s.style.backgroundImage = `${degradado[tono]}, url("${s.dataset.bg}")`;
+});
+
 // ---------- Navegación ----------
 const slides = [...document.querySelectorAll('.slide')];
 let actual = 0;

@@ -28,8 +28,10 @@ body { background: var(--brown); color: var(--cream); font-family: var(--sans); 
 }
 .slide.active { opacity: 1; visibility: visible; transform: none; }
 .slide.past { transform: translateX(-40px); }
-.slide.dark { background: var(--brown); color: var(--cream); }
-.slide.light { background: var(--cream); color: var(--ink); }
+.slide.dark { background-color: var(--brown); color: var(--cream); }
+.slide.light { background-color: var(--cream); color: var(--ink); }
+/* Foto de fondo con degradado (la pone js/presentacion.js desde data-bg) */
+.slide[data-bg] { background-size: cover; background-position: center; background-repeat: no-repeat; }
 
 .eyebrow { font-size: .78rem; letter-spacing: .32em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 14px; font-weight: 500; }
 .dark .eyebrow { color: var(--gold); }
@@ -47,7 +49,7 @@ strong { font-weight: 600; }
 
 /* Portada */
 .cover { flex-direction: row; align-items: center; gap: clamp(20px, 5vw, 80px); justify-content: center; }
-.cover-logo { width: clamp(200px, 30vw, 420px); aspect-ratio: 1; object-fit: cover; object-position: 50% 47%; }
+.cover-logo { width: clamp(200px, 30vw, 420px); aspect-ratio: 1; object-fit: cover; object-position: 50% 47%; mix-blend-mode: lighten; }
 .cover-text { max-width: 620px; }
 .cover h1 { margin-bottom: 22px; }
 .lema { font-family: var(--serif); font-size: clamp(1.1rem, 2vw, 1.6rem); color: var(--cream); }
@@ -65,7 +67,9 @@ strong { font-weight: 600; }
 .split { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(24px, 4vw, 64px); align-items: center; }
 .photo { position: relative; border-radius: 16px; overflow: hidden; background: repeating-linear-gradient(45deg, var(--brown-3) 0 14px, var(--brown-2) 14px 28px); border: 1px solid rgba(221,181,116,.35); min-height: 200px; }
 .light .photo { background: repeating-linear-gradient(45deg, var(--cream-2) 0 14px, #e3d4b8 14px 28px); border-color: var(--gold-2); }
-.photo.tall { aspect-ratio: 4 / 5; max-height: 72vh; }
+/* Fotos de las diapositivas con texto: se muestran completas, sin recortar */
+.photo.tall { background: none; border: 0; min-height: 0; overflow: visible; display: flex; justify-content: center; }
+.photo.tall img { position: relative; z-index: 1; width: auto; height: auto; max-width: 100%; max-height: 70vh; border-radius: 16px; border: 1px solid rgba(221,181,116,.4); box-shadow: 0 24px 60px rgba(0,0,0,.35); }
 .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ph { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--gold); font-size: .95rem; padding: 12px; }
 .light .ph { color: var(--muted-l); }
@@ -142,7 +146,7 @@ strong { font-weight: 600; }
 
 /* Campeonas */
 .champs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; max-width: 1000px; }
-.champ .photo { aspect-ratio: 4 / 3; }
+.champ .photo { aspect-ratio: 3 / 2; }
 .champ figcaption { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
 .trophy { font-size: 1.8rem; }
 .champ strong { display: block; font-family: var(--serif); font-size: 1.6rem; color: var(--gold); }
@@ -155,8 +159,8 @@ strong { font-weight: 600; }
 .links a:hover { background: #e8c78b; }
 
 /* Galería */
-.gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.gallery .photo { aspect-ratio: 3 / 4; }
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: 100%; max-width: calc((100vh - 290px) * 1.5 + 14px); }
+.gallery .photo { aspect-ratio: 3 / 2; min-height: 0; }
 
 /* Navegación */
 .nav { position: fixed; bottom: 18px; right: 18px; display: flex; align-items: center; gap: 6px; background: rgba(42,31,17,.85); backdrop-filter: blur(6px); border: 1px solid rgba(221,181,116,.35); border-radius: 30px; padding: 5px 8px; z-index: 10; }
@@ -171,8 +175,7 @@ strong { font-weight: 600; }
   .slide { justify-content: flex-start; padding-top: 40px; }
   .cover { flex-direction: column; justify-content: center; text-align: center; }
   .grid3, .grid2, .split { grid-template-columns: 1fr; }
-  .photo.tall { aspect-ratio: 16 / 10; }
-  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .gallery { grid-template-columns: 1fr; max-width: none; }
   .champs { grid-template-columns: 1fr; }
   .cover .links { justify-content: center; }
   .walls { grid-template-columns: 1fr; }
