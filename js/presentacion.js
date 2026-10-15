@@ -33,34 +33,62 @@ const productos = [
   { n: 'Gyrolando Plus con registro, recién nacida', q: 1, p: 3500000 },
   { n: 'Novilla / ternera de 140 kg (140 × $38.000)', q: 1, p: 5320000 },
   { n: 'Venta de aspiración', q: 1, p: 10000000 },
-  { n: 'Ovocitos viables', q: 1, p: 41500 },
+  { n: 'Ovocitos viables (promedio $38.000 – $45.000)', q: 1, p: 41500 },
   { n: 'Cría viva Gyr pura', q: 1, p: 15000000 },
   { n: 'Preñez confirmada Gyr pura', q: 1, p: 8000000 },
-  { n: 'Preñez confirmada Gyrolando (3 meses)', q: 1, p: 1900000 },
+  { n: 'Preñez confirmada Gyrolando, 3 meses (promedio)', q: 1, p: 1900000 },
 ];
+// El precio unitario es fijo: solo se mueve la cantidad
 const body = document.getElementById('simBody');
 body.innerHTML = productos.map((r, i) => `
   <tr>
     <td>${r.n}</td>
-    <td><input class="qty" type="number" min="0" value="${r.q}" data-i="${i}" data-k="q"></td>
-    <td><input type="number" min="0" step="1000" value="${r.p}" data-i="${i}" data-k="p"></td>
+    <td>
+      <div class="stepper">
+        <button type="button" data-i="${i}" data-d="-1" aria-label="Menos">−</button>
+        <input class="qty" type="number" min="0" value="${r.q}" data-i="${i}" aria-label="Cantidad">
+        <button type="button" data-i="${i}" data-d="1" aria-label="Más">+</button>
+      </div>
+    </td>
+    <td class="unit">${cop(r.p)}</td>
     <td class="sub" id="sub${i}"></td>
   </tr>`).join('');
 
-function calcular() {
+function pulso(el) {
+  el.classList.remove('pulse');
+  void el.offsetWidth;
+  el.classList.add('pulse');
+}
+
+function calcular(cambio) {
   let total = 0;
   productos.forEach((r, i) => {
     const s = r.q * r.p;
     total += s;
-    document.getElementById('sub' + i).textContent = cop(s);
+    const sub = document.getElementById('sub' + i);
+    sub.textContent = cop(s);
+    if (i === cambio) pulso(sub);
   });
-  document.getElementById('simTotal').textContent = cop(total);
+  const t = document.getElementById('simTotal');
+  t.textContent = cop(total);
+  if (cambio !== undefined) pulso(t);
 }
+
+function fijarCantidad(i, q) {
+  productos[i].q = Math.max(0, Math.floor(q) || 0);
+  body.querySelector(`input[data-i="${i}"]`).value = productos[i].q;
+  calcular(i);
+}
+body.addEventListener('click', e => {
+  const b = e.target.closest('button[data-d]');
+  if (b) fijarCantidad(+b.dataset.i, productos[b.dataset.i].q + Number(b.dataset.d));
+});
 body.addEventListener('input', e => {
   const t = e.target;
-  productos[t.dataset.i][t.dataset.k] = Math.max(0, Number(t.value) || 0);
-  calcular();
+  productos[t.dataset.i].q = Math.max(0, Math.floor(Number(t.value)) || 0);
+  calcular(+t.dataset.i);
 });
+body.addEventListener('change', e => fijarCantidad(+e.target.dataset.i, Number(e.target.value)));
 calcular();
 
 // ---------- Fondos: foto de la ganadería bajo un degradado ----------
